@@ -53,6 +53,15 @@ function getCircleCircumference(radius) {
  */
 function getAverage(/* value1, value2 */) {
   throw new Error('Not implemented');
+  // let res = 0;
+  // if (value1 > value2) {
+  //   res = (value1 - value2) / 2 + value2;
+  // } else if (value1 < value2) {
+  //   res = (value2 - value1) / 2 + value1;
+  // } else {
+  //   res = value1;
+  // }
+  // return res;
 }
 
 /**

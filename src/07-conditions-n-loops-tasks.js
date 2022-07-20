@@ -298,6 +298,16 @@ function reverseInteger(num) {
  */
 function isCreditCardNumber(/* ccn */) {
   throw new Error('Not implemented');
+  // const list = ccn.toString().split('').map((el) => +el);
+  // function checkNumbers(a, b) {
+  //   return a === b;
+  // }
+  // return list.every((el, index) => {
+  //   if (index % 2 !== 0 && el * 2 > 9) {
+  //     return checkNumbers(el, el * 2 - 9);
+  //   }
+  //   return true;
+  // });
 }
 
 /**
@@ -314,11 +324,10 @@ function isCreditCardNumber(/* ccn */) {
  *   10000 ( 1+0+0+0+0 = 1 ) => 1
  *   165536 (1+6+5+5+3+6 = 26,  2+6 = 8) => 8
  */
-function getDigitalRoot(/* num */) {
-  throw new Error('Not implemented');
-  // if (num.toString().length === 1) return num;
-  // const sum = num.toString().split().reduce((acc, el) => acc + el, 0);
-  // return getDigitalRoot(sum);
+function getDigitalRoot(num) {
+  if (num < 10) return num;
+  const sum = num.toString().split('').reduce((acc, el) => acc + +el, 0);
+  return getDigitalRoot(sum);
 }
 
 
@@ -343,8 +352,27 @@ function getDigitalRoot(/* num */) {
  *   '{)' = false
  *   '{[(<{[]}>)]}' = true
  */
-function isBracketsBalanced(/* str */) {
-  throw new Error('Not implemented');
+function isBracketsBalanced(str) {
+  const list = str.split('');
+  const cache = [];
+  const openCase = ['[', '{', '<', '('];
+  for (let i = 0; i < list.length; i += 1) {
+    const el = list[i];
+    if (openCase.includes(el)) {
+      cache.push(el);
+    } else if (el === ']' && cache[cache.length - 1] === openCase[0]) {
+      cache.pop();
+    } else if (el === '}' && cache[cache.length - 1] === openCase[1]) {
+      cache.pop();
+    } else if (el === '>' && cache[cache.length - 1] === openCase[2]) {
+      cache.pop();
+    } else if (el === ')' && cache[cache.length - 1] === openCase[3]) {
+      cache.pop();
+    } else {
+      return false;
+    }
+  }
+  return cache.length === 0;
 }
 
 
