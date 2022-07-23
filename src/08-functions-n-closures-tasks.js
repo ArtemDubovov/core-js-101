@@ -137,10 +137,42 @@ function retry(/* func, attempts */) {
  * log from console.log:
  * cos(3.141592653589793) starts
  * cos(3.141592653589793) ends
- *
+ *'testLogger(["expected","test",1],0) starts\n'
  */
-function logger(/* func, logFunc */) {
-  throw new Error('Not implemented');
+function logger(func, logFunc) {
+  return function returnLog(...args) {
+    let array = args;
+    if (args.length > 1) {
+      array = args.map((el1) => {
+        if (Array.isArray(el1)) {
+          return el1.map((el2, index) => {
+            let res = el2;
+            if (!+el2) {
+              if (index === 0) {
+                res = `["${el2}"`;
+              } else if (index === el1.length - 1) {
+                res = `"${el2}"]`;
+              } else {
+                res = `"${el2}"`;
+              }
+              return res;
+            } if (index === el1.length - 1) {
+              res = `${el2}]`;
+            }
+            return res;
+          }).join(',');
+        }
+        return el1;
+      });
+    }
+    logFunc(`${func.name}(${[array]}) starts`);
+
+    const res = func(...args);
+
+    logFunc(`${func.name}(${array}) ends`);
+
+    return res;
+  };
 }
 
 
@@ -157,8 +189,10 @@ function logger(/* func, logFunc */) {
  *   partialUsingArguments(fn, 'a','b','c')('d') => 'abcd'
  *   partialUsingArguments(fn, 'a','b','c','d')() => 'abcd'
  */
-function partialUsingArguments(/* fn, ...args1 */) {
-  throw new Error('Not implemented');
+function partialUsingArguments(fn, ...args1) {
+  return function chain(...args2) {
+    return fn(...args1.concat(...args2));
+  };
 }
 
 
@@ -179,8 +213,12 @@ function partialUsingArguments(/* fn, ...args1 */) {
  *   getId4() => 7
  *   getId10() => 11
  */
-function getIdGeneratorFunction(/* startFrom */) {
-  throw new Error('Not implemented');
+function getIdGeneratorFunction(startFrom) {
+  let value = startFrom - 1;
+  return function get() {
+    value += 1;
+    return value;
+  };
 }
 
 
