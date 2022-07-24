@@ -51,23 +51,15 @@ function getCircleCircumference(radius) {
  *  10, 0  => 5
  *  -3, 3  => 0
  */
-function getAverage(/* value1, value2 */) {
-  throw new Error('Not implemented');
-  // if (value1 === value2) {
-  //   return value1;
-  // }
-  // const minValue = Math.min(value1, value2);
-  // const maxValue = Math.max(value1, value2);
-  // return Math.abs((Math.abs(maxValue) - Math.abs(minValue)) / 2) + minValue;
-  // let res = 0;
-  // if (value1 > value2) {
-  //   res = (value1 - value2) / 2 + value2;
-  // } else if (value1 < value2) {
-  //   res = (value2 - value1) / 2 + value1;
-  // } else {
-  //   res = value1;
-  // }
-  // return res;
+function getAverage(value1, value2) {
+  const max = Math.max(value1, value2);
+  const min = Math.min(value1, value2);
+
+  if (min < 0) {
+    return (max + min) / 2;
+  }
+
+  return (max / 2 - min / 2) + min;
 }
 
 /**

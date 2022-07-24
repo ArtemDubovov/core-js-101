@@ -23,8 +23,10 @@
  *   getComposition(Math.sin, Math.asin)(x) => Math.sin(Math.asin(x))
  *
  */
-function getComposition(/* f, g */) {
-  throw new Error('Not implemented');
+function getComposition(f, g) {
+  return function getValues(args) {
+    return f(g(args));
+  };
 }
 
 
@@ -67,6 +69,23 @@ function getPowerFunction(exponent) {
  */
 function getPolynom() {
   throw new Error('Not implemented');
+  // return function getValues(...args) {
+  //   let storage = [];
+  //   if (args.length === 3) {
+  //     const [a, b, c] = [...args];
+  //     const one =
+  //     return storage;
+  //   }
+  //   if (args.length === 2) {
+  //     const [a, b] = [...args];
+  //     return storage;
+  //   }
+  //   if (args.length === 1) {
+  //     storage.push({ x: 0, y: args });
+  //     return storage;
+  //   }
+  //   return null;
+  // };
 }
 
 
@@ -113,6 +132,15 @@ function memoize(func) {
  */
 function retry(/* func, attempts */) {
   throw new Error('Not implemented');
+  // let counter = attempts;
+  // return function repeater() {
+  //   if (counter === 0) {
+  //     return func();
+  //   }
+  //   func();
+  //   counter -= 1;
+  //   return repeater();
+  // };
 }
 
 
